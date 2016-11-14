@@ -1,0 +1,47 @@
+------Steps for Projetc Setup--------------
+(Please follow the following instructions assuming you have Ubuntu 14.04 installed in your machine)
+Install Python 3.*.*
+Refer https://www.digitalocean.com/community/tutorials/how-to-set-up-an-apache-mysql-and-python-lamp-server-without-frameworks-on-ubuntu-14-04
+
+
+If you have ububntu python is already come with preinstalled but with 2.8.* versions, so
+to upgrade with 3.*.* version
+Please
+1. python--version //For checking version if 3.*.* then skip 2 & 3
+2.sudo rm /usr/bin/python
+3. sudo ln -s /usr/bin/python3 /usr/bin/python
+
+For installing Pip
+1. sudo apt-get update
+2. sudo apt-get install python3-pip
+
+For installing MySQL
+1. sudo apt-get install mysql-server
+2. mysql_secure_installation
+
+Install MySQL plus Plython connectivity
+1. sudo pip3 install pymysql
+
+Install Apache2
+1. sudo apt-get install apache2
+
+
+Refer http://bottlepy.org/docs/dev/tutorial.html#installation  for bottle
+
+For this we have decide to use bottle
+1. sudo pip3 install bottle
+Go to your project folder
+2. sudo pip3 install virtualenv
+2. virtualenv develop
+
+
+
+
+==========For printing installed python modules at local====
+type python
+It will open python interpreter for you
+import pip
+installed_packages = pip.get_installed_distributions()
+installed_packages_list = sorted(["%s==%s" % (i.key, i.version)
+for i in installed_packages])
+	print(installed_packages_list)
