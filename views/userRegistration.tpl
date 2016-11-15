@@ -1,10 +1,7 @@
-
-
-User Registration
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Dataowner</title>
+        <title>User Registration</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,15 +16,15 @@ User Registration
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="color:#000000">Login</a>
                     <ul class="dropdown-menu" style="margin-top: 5px;">
-                        <li><a href="do1.html" align="center">Data Owner</a></li>
-                        <li><a href="u1.html" align="center">User</a></li>
+                        <li><a href="/owner/login" align="center">Data Owner</a></li>
+                        <li><a href="/user/login" align="center">User</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="color:#000000">Register</a>
                     <ul class="dropdown-menu" style="margin-top: 5px;">
-                        <li><a href="dataowner.html" align="center">Data Owner</a></li>
-                        <li><a href="user.html" align="center">User</a></li>
+                        <li><a href="/owner/register" align="center">Data Owner</a></li>
+                        <li><a href="/user/register" align="center">User</a></li>
                     </ul>
                 </li>
                 <li><a href="#" style="color:#000000">About Us</a></li>

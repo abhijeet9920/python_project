@@ -25,7 +25,7 @@ def index():
 
 @post('/user/post') # or @route('/user/post', method='POST')
 def index():
-	users = controller.insertUser(request)
+	users = controller.insertUser(request, 'user')
 	return users 
 
 ############################################################################
@@ -42,6 +42,13 @@ def index():
 def index():
     #Login page
     return template('views/dataownerRegistration.tpl')
+
+############################################################################
+
+@post('/owner/post') # or @route('/user/post', method='POST')
+def index():
+    users = controller.insertUser(request, 'dataowner')
+    return users
 
 ############################################################################
 

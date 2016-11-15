@@ -13,7 +13,7 @@ def getUsers():
 	return data
 
 
-def insertUser(req):
+def insertUser(req, utype):
 	fname = req.forms.get("fname")
 	lname = req.forms.get("lname")
 	address = req.forms.get("address")
@@ -22,7 +22,7 @@ def insertUser(req):
 	uname = req.forms.get("uname")
 	pwd = req.forms.get("pwd")
 	c = database.conn.cursor()
-	query = 'INSERT INTO users values (NULL, "%s", "%s", "%s", "%s", "%s", "%s", "%s")'%(fname,lname,address,phone,email, uname, pwd)
+	query = 'INSERT INTO users values (NULL, "%s", "%s","%s", "%s", "%s", "%s", "%s", "%s")'%(fname,lname,utype,address,phone,email, uname, pwd)
 	#print(query)
 	c.execute(query)
 	database.conn.commit()
