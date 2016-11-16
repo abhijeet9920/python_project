@@ -7,6 +7,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/additional-methods.min.js"></script>
+        <style type="text/css">
+            .error{
+                color:red;
+                margin-left: 33%
+            }
+            .success:{
+                border: green solid 2px,
+            }
+        </style>
     </head>
     <body style="background-color: #003333">
         <h2 style="color:#ffffff;margin-left: 95px;">ENSURING DATA SECURITY AND FUZZY SEARCHING OVER AN ENCRYPTED DATA</h2>
@@ -35,7 +46,7 @@
             <div style="background-color: #000000">
                 <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Registration Form</h2>
             </div>
-            <form style="margin-top: 30px;" action="/owner/post" method="POST">
+            <form style="margin-top: 30px;" action="/owner/post" method="POST" id="ownerreg">
                 <div class="form-group">
                     <label for="fname" style="margin-left:300px">First Name:</label>
                     <input type="text " class="form-control" name="fname" id="fname" placeholder="Enter your First name" style="width:450px;margin-left: 300px;">
@@ -67,5 +78,41 @@
                 <button type="submit" class="btn btn-primary" style="margin-left:500px">Submit</button>
             </form>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#ownerreg").validate({
+                    rules:{
+                        fname:"required",
+                        lname:"required",
+                        address:"required",
+                        phone:{"required":true, "digits":true},
+                        email:{"required":true, "email": true},
+                        uname:"required",
+                        pwd:"required"
+                    },
+                    messages:{
+                        fname:"Please enter your first name",
+                        lname:"Please enter your last name",
+                        address:"Please enter your address",
+                        phone:{
+                            "required":"Please enter your mobile number",
+                            "digits":"Phone number must be a number"
+                        },
+                        email:{
+                            "required":"Please enter your email",
+                            "email": "Please enter valid email"
+                        },
+                        uname:"Please enter your username",
+                        pwd:"Please enter password"
+                    },
+                    errorPlacement: function(error, element){
+                        element.after(error)
+                    },
+                    onkeyup: true,
+                    focusCleanup: true,
+                    validClass: "success"
+                });
+            });
+        </script>
     </body>
 </html>
