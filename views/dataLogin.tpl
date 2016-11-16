@@ -7,6 +7,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/additional-methods.min.js"></script>
+        <style type="text/css">
+            .error{
+                color:red;
+                margin-left: 33%
+            }
+            .success:{
+                border: green solid 2px,
+            }
+        </style>
     </head>
     <body style="background-color: #003333">
         <h2 style="color:#ffffff;margin-left: 95px;">ENSURING DATA SECURITY AND FUZZY SEARCHING OVER AN ENCRYPTED DATA</h2>
@@ -31,8 +42,8 @@
                 <li><a href="#" style="color:#000000">Contact Us</a></li>
             </ul>
         </div>
-        <form action="login.py" method="POST">
-            <div class="container" style="margin-top: 30px;background-color: #a3c2c2;width: 918px;margin-left: 250px;padding-left: 0px;padding-right: 0px;padding-top: 0px;padding-bottom: 30px;">
+        <div class="container" style="margin-top: 30px;background-color: #a3c2c2;width: 918px;margin-left: 250px;padding-left: 0px;padding-right: 0px;padding-top: 0px;padding-bottom: 30px;">
+            <form action="/owner/login/post" method="POST" id="ownerlogin">
                 <div style="background-color: #000000">
                     <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Dataowner Login</h2>
                 </div>
@@ -49,17 +60,45 @@
                 </div>
                 <div class="form-group">
                     <label for="psd" style="margin-left:300px">Password:</label>
-                    <input type="password" class="form-control" id="psd" placeholder="Enter your Password" style="width:450px;margin-left: 300px;">
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter your Password" style="width:450px;margin-left: 300px;">
                 </div>
                 <div class="form-group">
                     <label for="key" style="margin-left:300px">Secret Key:</label>
-                    <input type="password" class="form-control" id="psd" placeholder="Enter your Password" style="width:450px;margin-left: 300px;">
+                    <input type="password" class="form-control" id="secret" placeholder="Enter your secret" style="width:450px;margin-left: 300px;">
                 </div>
                 <div style="margin-left: 460px;">
-                    <button type="button" class="btn btn-primary">Login</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='dataowner.html';" style="margin-left: 10px;">Sign Up</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="/owner/register">Not having an account? Don't worry create here</a>
+                    <!-- <button type="button" class="btn btn-primary" onclick="location.href='/owner/register';" style="margin-left: 10px;">Sign Up</button> -->
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#ownerlogin").validate({
+                    rules:{
+                        email:{"required":true, "email": true},
+                        uname:"required",
+                        pwd:"required",
+                        secret:"required"
+                    },
+                    messages:{
+                        email:{
+                            "required":"Please enter your email",
+                            "email": "Please enter valid email"
+                        },
+                        uname:"Please enter your username",
+                        pwd:"Please enter password",
+                        secret:"Please enter your secret key"
+                    },
+                    errorPlacement: function(error, element){
+                        element.after(error)
+                    },
+                    onkeyup: true,
+                    focusCleanup: true,
+                    validClass: "success"
+                });
+            });
+        </script>
     </body>
 </html>
