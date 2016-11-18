@@ -52,7 +52,7 @@
                     <input type="text " class="form-control" id="email" placeholder="Enter your Email-Id" style="width:450px;margin-left: 300px;">
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary" style="margin-left:780px;margin-top: -50px;">Send</button>
+                    <button type="button" class="btn btn-primary" style="margin-left:780px;margin-top: -50px;" id="getsecret">Send</button>
                 </div>
                 <div class="form-group">
                     <label for="uname" style="margin-left:300px">Username:</label>
@@ -67,7 +67,8 @@
                     <input type="password" class="form-control" id="secret" placeholder="Enter your secret" style="width:450px;margin-left: 300px;">
                 </div>
                 <div style="margin-left: 460px;">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <input type="submit" class="btn btn-primary" value="Login">
+                    <!-- <button type="submit" class="btn btn-primary">Login</button> -->
                     <a href="/owner/register">Not having an account? Don't worry create here</a>
                     <!-- <button type="button" class="btn btn-primary" onclick="location.href='/owner/register';" style="margin-left: 10px;">Sign Up</button> -->
                 </div>
@@ -75,6 +76,25 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
+                $("#getsecret").on('click', function(){
+                    //alert("Clicked");
+                    var email = $("#email").val();
+                    var uname = $("#uname").val();
+                    if( email !== "" && uname !== ""){
+                        $.ajax({
+                            url: '/getkey',
+                            type: 'POST',
+                            data:{email:email,username:uname},
+                            success: function(response){
+                                console.log(response)
+                                alert(response.message)
+                            }
+                        });
+                    }
+                    else{
+                        alert("Please enter your email and username");
+                    }
+                });
                 $("#ownerlogin").validate({
                     rules:{
                         email:{"required":true, "email": true},

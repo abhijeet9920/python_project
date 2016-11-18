@@ -1,6 +1,7 @@
 from config import database
 #from Crypto.Cipher import AES
 from Crypto.Hash import MD5
+from config import helpers
 
 
 def getUsers():
@@ -27,3 +28,24 @@ def insertUser(req, utype):
 	c.execute(query)
 	database.conn.commit()
 	return "New user added successfully"
+
+
+def sendSecret(req):
+	uname = req.forms.get('username');
+	email = req.forms.get('email');
+	secret = helpers.random_string(64)
+	c = database.conn.cursor()
+	sql = "SELECT id from users where email='%s' AND username='%s'"%(email,uname)
+	users = []
+	c.execute(sql)
+	database.conn.commit()
+	users = c.fetchone()
+	if users:
+		uid = users[0]
+		if uid != 0:
+			msg ={"status":"success", "message": "User is found"}
+		else:
+			msg ={"status":"failed", "message": "Please provide correct email and username combination"}
+	else:
+		msg = {"status":"failed","message":"Invalid user"}
+	return msg

@@ -53,5 +53,11 @@ def index():
     return "Owner login"
 
 
+#Generate secret key
+@post('/getkey')
+def index():
+    secret = controller.sendSecret(request)
+    return secret
+
 #You can configure host, port and debug as per your requirements
 run(host='localhost', port=8000, debug=True)
