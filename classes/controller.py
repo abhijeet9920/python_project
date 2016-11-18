@@ -2,7 +2,7 @@ from config import database
 #from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 from config import helpers
-
+import time    
 
 def getUsers():
 	c = database.conn.cursor()
@@ -38,14 +38,16 @@ def sendSecret(req):
 	sql = "SELECT id from users where email='%s' AND username='%s'"%(email,uname)
 	users = []
 	c.execute(sql)
-	database.conn.commit()
 	users = c.fetchone()
 	if users:
 		uid = users[0]
 		if uid != 0:
+			query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
+			c.execute(query)
 			msg ={"status":"success", "message": "User is found"}
 		else:
 			msg ={"status":"failed", "message": "Please provide correct email and username combination"}
 	else:
 		msg = {"status":"failed","message":"Invalid user"}
+	database.conn.commit()
 	return msg

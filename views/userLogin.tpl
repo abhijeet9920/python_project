@@ -52,7 +52,7 @@
                     <input type="text " class="form-control" id="email" placeholder="Enter your Email-Id" style="width:450px;margin-left: 300px;">
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary" style="margin-left:780px;margin-top: -50px;">Send</button>
+                    <button type="button" class="btn btn-primary" style="margin-left:780px;margin-top: -50px;" id="getuserskey">Send</button>
                 </div>
                 <div class="form-group">
                     <label for="uname" style="margin-left:300px">Username:</label>
@@ -74,6 +74,26 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
+                $("#getuserskey").on('click', function(){
+                    var email = $("#email").val();
+                    var uname = $("#uname").val();
+                    if( email !== "" && uname !== ""){
+                        $.ajax({
+                            url: '/getkey',
+                            type: 'POST',
+                            data:{email:email,username:uname},
+                            success: function(response){
+                                console.log(response)
+                                alert(response.message)
+                            }
+                        });
+                    }
+                    else{
+                        alert("Please enter your email and username");
+                    }
+                });
+
+
                 $("#userlogin").validate({
                     rules:{
                         email:{"required":true, "email": true},

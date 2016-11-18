@@ -77,7 +77,6 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#getsecret").on('click', function(){
-                    //alert("Clicked");
                     var email = $("#email").val();
                     var uname = $("#uname").val();
                     if( email !== "" && uname !== ""){
