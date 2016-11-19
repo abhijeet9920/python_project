@@ -24,7 +24,6 @@ def insertUser(req, utype):
 	pwd = req.forms.get("pwd")
 	c = database.conn.cursor()
 	query = 'INSERT INTO users values (NULL, "%s", "%s","%s", "%s", "%s", "%s", "%s", "%s")'%(fname,lname,utype,address,phone,email, uname, pwd)
-	#print(query)
 	c.execute(query)
 	database.conn.commit()
 	return "New user added successfully"
@@ -42,9 +41,12 @@ def sendSecret(req):
 	if users:
 		uid = users[0]
 		if uid != 0:
+			message = "<h2>%s <b>%s,</b></h2> %s\n%s\n<span style='color:blue;'>%s</span>"%("Welcome",uname,"Thank you for login to our system","Use following key to login",secret)
+			sub = "Your secret key for login on %s"%(time.strftime('%A, %d %b %Y %I:%M %p'))
+			status = helpers.secretKeyMail(email,sub, message)
 			query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
 			c.execute(query)
-			msg ={"status":"success", "message": "User is found"}
+			msg = status
 		else:
 			msg ={"status":"failed", "message": "Please provide correct email and username combination"}
 	else:

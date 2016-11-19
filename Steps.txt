@@ -32,8 +32,8 @@ For this we have decide to use bottle
 1. sudo pip3 install bottle
 Go to your project folder
 2. sudo pip3 install virtualenv
-2. virtualenv develop
-
+3. virtualenv develop
+4. sudo pip3 install email
 
 
 

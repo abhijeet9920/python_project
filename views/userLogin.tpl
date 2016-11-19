@@ -85,6 +85,9 @@
                             success: function(response){
                                 console.log(response)
                                 alert(response.message)
+                                if(response.status == 'fail'){
+                                    location.reload();
+                                }
                             }
                         });
                     }
