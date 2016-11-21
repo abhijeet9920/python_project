@@ -1,4 +1,4 @@
-from bottle import get, post, request, run, template
+from bottle import get, post, request, run, template, redirect
 from classes import controller
 import bottle
 import bottle_session
@@ -6,29 +6,6 @@ import bottle_session
 app = bottle.app()
 plugin = bottle_session.SessionPlugin()
 app.install(plugin)
-
-
-@get('/seesession')
-def index(session):
-    user_name = session.get('name')
-    if user_name is not None:
-        return "Hello, %s"%user_name
-    else:
-        return "I don't recognize you."
-
-@get('/set/:user_name')
-def set_name(session,user_name=None):
-    if user_name is not None:
-        session['name']=user_name
-        return "I recognize you now."
-    else:
-        return "What was that?"
-
-@get('/clearsession')
-def index(session):
-    session['name']='';
-    return "You are logged out"
-
 
 @get('/')
 def index(session):
@@ -47,12 +24,22 @@ def index(session):
 @get('/user/register')
 def index(session):
     #Login page
-    return template('views/userRegistration.tpl')
+    if session['msg'] != '' and session['status'] != '':
+    	msg = session['msg']
+    	classs = session['status']
+    	session['status'] = ''
+    	session['msg'] = ''
+    else:
+    	msg = ''
+    	classs = ''
+    return template('views/userRegistration.tpl', classname=classs, msg=msg)
 
 @post('/user/post')
 def index(session):
 	users = controller.insertUser(request, 'user')
-	return users 
+	session['status'] = users['status']
+	session['msg'] = users['msg']
+	redirect('/user/register')
 
 @post('/user/login/post')
 def index(session):

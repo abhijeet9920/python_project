@@ -2,7 +2,9 @@ from config import database
 #from Crypto.Cipher import AES
 from Crypto.Hash import MD5
 from config import helpers
-import time    
+import time
+
+
 
 def getUsers():
 	c = database.conn.cursor()
@@ -23,10 +25,13 @@ def insertUser(req, utype):
 	uname = req.forms.get("uname")
 	pwd = req.forms.get("pwd")
 	c = database.conn.cursor()
-	query = 'INSERT INTO users values (NULL, "%s", "%s","%s", "%s", "%s", "%s", "%s", "%s")'%(fname,lname,utype,address,phone,email, uname, pwd)
-	c.execute(query)
-	database.conn.commit()
-	return "New user added successfully"
+	try:
+		query = 'INSERT INTO users values (NULL, "%s", "%s","%s", "%s", "%s", "%s", "%s", "%s")'%(fname,lname,utype,address,phone,email, uname, pwd)
+		c.execute(query)
+		database.conn.commit()
+		return {"status":"success", "msg":"New user added"}
+	except:
+		return {"status":"failed", "msg":"Looks like error, don't worry we will resolve it soon"}
 
 
 def sendSecret(req):

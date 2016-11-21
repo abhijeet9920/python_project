@@ -44,6 +44,13 @@
         </div>
         </div>
         <div class="container" style="margin-top: 30px;background-color: #a3c2c2;width: 918px;margin-left: 250px;padding-left: 0px;padding-right: 0px;">
+            %if msg != '':
+                %if classname == 'success':
+                    <p class="alert alert-info">{{msg}}</p>
+                %elif classname == 'failed':
+                    <p class="alert alert-danger">{{msg}}</p>
+                %end
+            %end
             <div style="background-color: #000000">
                 <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Registration Form</h2>
             </div>
