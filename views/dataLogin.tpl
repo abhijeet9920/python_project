@@ -17,6 +17,18 @@
             .success:{
                 border: green solid 2px,
             }
+            .loader {
+                display: none;
+                position: fixed;
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 100%;
+                z-index: 56;
+                opacity: 0.5;
+                background: url('http://interactive.channelvn.net/Published/Quiz/Styles/images/quiz-loading.gif') 50% 50% no-repeat rgb(204, 204, 204);
+            }
+
         </style>
     </head>
     <body style="background-color: #003333">
@@ -43,6 +55,7 @@
             </ul>
         </div>
         <div class="container" style="margin-top: 30px;background-color: #a3c2c2;width: 918px;margin-left: 250px;padding-left: 0px;padding-right: 0px;padding-top: 0px;padding-bottom: 30px;">
+            <div class="loader"></div>
             <form action="/owner/login/post" method="POST" id="ownerlogin">
                 <div style="background-color: #000000">
                     <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Dataowner Login</h2>
@@ -84,7 +97,11 @@
                             url: '/getkey',
                             type: 'POST',
                             data:{email:email,username:uname},
+                            beforeSend:function(){
+                                $(".loader").show();
+                            },
                             success: function(response){
+                                $(".loader").hide();
                                 console.log(response)
                                 alert(response.message)
                                 if(response.status == 'fail'){

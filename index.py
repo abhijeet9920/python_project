@@ -17,12 +17,12 @@ def index(session):
 
 ###Normal User
 @get('/user/login')
-def index(session):
+def userlogin(session):
     #Login page
     return template('views/userLogin.tpl')
 
 @get('/user/register')
-def index(session):
+def userreg(session):
     #Login page
     if session['msg'] != '' and session['status'] != '':
     	msg = session['msg']
@@ -35,25 +35,25 @@ def index(session):
     return template('views/userRegistration.tpl', classname=classs, msg=msg)
 
 @post('/user/post')
-def index(session):
+def postuserreg(session):
 	users = controller.insertUser(request, 'user')
 	session['status'] = users['status']
 	session['msg'] = users['msg']
 	redirect('/user/register')
 
 @post('/user/login/post')
-def index(session):
+def postuserlogin(session):
     return "User login" 
 
 
 ###Data owner 
 @get('/owner/login')
-def index(session):
+def ownerlogin(session):
     #Login page
     return template('views/dataLogin.tpl')
 
 @get('/owner/register')
-def index(session):
+def ownerreg(session):
     #Login page
     if session['msg'] != '' and session['status'] != '':
     	msg = session['msg']
@@ -66,20 +66,20 @@ def index(session):
     return template('views/dataownerRegistration.tpl', classname=classs, msg=msg)
 
 @post('/owner/post')
-def index(session):
+def postownerreg(session):
     users = controller.insertUser(request, 'dataowner')
     session['status'] = users['status']
     session['msg'] = users['msg']
     redirect('/owner/register')
 
 @post('/owner/login/post')
-def index(session):
+def postownerlogin(session):
     return "Owner login"
 
 
 #Generate secret key
 @post('/getkey')
-def index(session):
+def sendkey(session):
     secret = controller.sendSecret(request)
     return secret
 
