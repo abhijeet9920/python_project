@@ -33,9 +33,9 @@ For this we have decide to use bottle
 Go to your project folder
 2. sudo pip3 install virtualenv
 3. virtualenv develop
-4. sudo pip3 install email
-
-
+4. sudo pip3 install bottle-session
+(Refer https://pypi.python.org/pypi/bottle-session/0.4 for more on sessions)
+5. sudo pip3 install pycrypto
 
 ==========For printing installed python modules at local====
 type python

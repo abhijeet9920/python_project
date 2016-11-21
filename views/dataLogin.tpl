@@ -49,22 +49,22 @@
                 </div>
                 <div class="form-group">
                     <label for="email" style="margin-left:300px">Email Id:</label>
-                    <input type="text " class="form-control" id="email" placeholder="Enter your Email-Id" style="width:450px;margin-left: 300px;">
+                    <input type="text " class="form-control" name="email" id="email" placeholder="Enter your Email-Id" style="width:450px;margin-left: 300px;">
                 </div>
                 <div>
                     <button type="button" class="btn btn-primary" style="margin-left:780px;margin-top: -50px;" id="getsecret">Send</button>
                 </div>
                 <div class="form-group">
                     <label for="uname" style="margin-left:300px">Username:</label>
-                    <input type="text " class="form-control" id="uname" placeholder="Enter your Username" style="width:450px;margin-left: 300px;">
+                    <input type="text " class="form-control" name="uname" id="uname" placeholder="Enter your Username" style="width:450px;margin-left: 300px;">
                 </div>
                 <div class="form-group">
                     <label for="psd" style="margin-left:300px">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter your Password" style="width:450px;margin-left: 300px;">
+                    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Enter your Password" style="width:450px;margin-left: 300px;">
                 </div>
                 <div class="form-group">
                     <label for="key" style="margin-left:300px">Secret Key:</label>
-                    <input type="password" class="form-control" id="secret" placeholder="Enter your secret" style="width:450px;margin-left: 300px;">
+                    <input type="password" class="form-control" name="secret" id="secret" placeholder="Enter your secret" style="width:450px;margin-left: 300px;">
                 </div>
                 <div style="margin-left: 460px;">
                     <input type="submit" class="btn btn-primary" value="Login">
