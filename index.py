@@ -55,12 +55,22 @@ def index(session):
 @get('/owner/register')
 def index(session):
     #Login page
-    return template('views/dataownerRegistration.tpl')
+    if session['msg'] != '' and session['status'] != '':
+    	msg = session['msg']
+    	classs = session['status']
+    	session['status'] = ''
+    	session['msg'] = ''
+    else:
+    	msg = ''
+    	classs = ''
+    return template('views/dataownerRegistration.tpl', classname=classs, msg=msg)
 
 @post('/owner/post')
 def index(session):
     users = controller.insertUser(request, 'dataowner')
-    return users
+    session['status'] = users['status']
+    session['msg'] = users['msg']
+    redirect('/owner/register')
 
 @post('/owner/login/post')
 def index(session):
