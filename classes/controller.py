@@ -6,16 +6,6 @@ import time
 
 
 
-def getUsers():
-	c = database.conn.cursor()
-	c.execute("SELECT * FROM users")
-	database.conn.commit()
-	data = []
-	for r in c.fetchall():
-		data.append(r)
-	return data
-
-
 def insertUser(req, utype):
 	fname = req.forms.get("fname")
 	lname = req.forms.get("lname")
@@ -52,9 +42,28 @@ def sendSecret(req):
 			query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
 			c.execute(query)
 			msg = status
+			#msg = {"status":"success", "message":"A secret key is sent, Please check your mail"}
 		else:
 			msg ={"status":"failed", "message": "Please provide correct email and username combination"}
 	else:
 		msg = {"status":"failed","message":"Invalid user"}
 	database.conn.commit()
 	return msg
+
+
+
+def logIn(req, utype):
+	email = req.forms.get('email')
+	uname = req.forms.get('uname')
+	pwd = req.forms.get('pwd')
+	secret = req.forms.get('secret')
+	c = database.conn.cursor()
+	sql = 'SELECT a.id as userid, a.email as email, a.username as uname, b.created_at as login_on from users a join login b on a.id=b.userid where a.email="%s" AND a.username="%s" AND a.password="%s" AND a.usertype="%s"AND b.secret="%s"'%(email,uname,pwd, utype,secret)
+	loggedinusers = []
+	c.execute(sql)
+	loggedinusers = c.fetchone()
+	if loggedinusers:
+		print(loggedinusers)
+		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1]}
+	else:
+		return {"status":"failed", "msg":"Please enter proper secret key, email and password combination"}

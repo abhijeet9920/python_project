@@ -43,7 +43,8 @@ def postuserreg(session):
 
 @post('/user/login/post')
 def postuserlogin(session):
-    return "User login" 
+	users = controller.logIn(request, 'user')
+	return users
 
 
 ###Data owner 
@@ -74,7 +75,8 @@ def postownerreg(session):
 
 @post('/owner/login/post')
 def postownerlogin(session):
-    return "Owner login"
+    users = controller.logIn(request, 'dataowner')
+    return users
 
 
 #Generate secret key
