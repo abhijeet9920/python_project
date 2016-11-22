@@ -28,7 +28,24 @@
                 opacity: 0.5;
                 background: url('http://interactive.channelvn.net/Published/Quiz/Styles/images/quiz-loading.gif') 50% 50% no-repeat rgb(204, 204, 204);
             }
-
+            .overlay {
+                background-color: rgba(1, 1, 1, 0.7);
+                bottom: 0;
+                left: 0;
+                position: fixed;
+                right: 0;
+                top: 0;
+                text-align: center;
+            }
+            .disabledmsg {
+                font-size: 45px;
+                color:red;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                margin-top: -9px;
+            }
         </style>
     </head>
     <body style="background-color: #003333">
@@ -140,4 +157,9 @@
             });
         </script>
     </body>
+    <noscript>
+        <div class="overlay">
+            <span class="disabledmsg">Please enable javascript</span>
+        </div>
+    </noscript>
 </html>

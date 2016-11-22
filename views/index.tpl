@@ -7,6 +7,26 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            .overlay {
+                background-color: rgba(1, 1, 1, 0.7);
+                bottom: 0;
+                left: 0;
+                position: fixed;
+                right: 0;
+                top: 0;
+                text-align: center;
+            }
+            .disabledmsg {
+                font-size: 45px;
+                color:red;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                margin-top: -9px;
+            }
+        </style>
     </head>
     <body style="background-color: #003333">
         <h2 style="color:#ffffff;margin-left: 95px;">ENSURING DATA SECURITY AND FUZZY SEARCHING OVER AN ENCRYPTED DATA</h2>
@@ -34,4 +54,9 @@
         <div class="container" style="margin-top: 30px;">
         </div>
     </body>
+    <noscript>
+        <div class="overlay">
+            <span class="disabledmsg">Please enable javascript</span>
+        </div>
+    </noscript>
 </html>
