@@ -2,7 +2,7 @@ from bottle import get, post, request, run, template, redirect
 from classes import controller
 import bottle
 import bottle_session
-
+import os 
 app = bottle.app()
 plugin = bottle_session.SessionPlugin()
 app.install(plugin)
@@ -46,6 +46,12 @@ def postuserlogin(session):
 	users = controller.logIn(request, 'user')
 	return users
 
+@get('/user/findfile')
+def find(session):
+	return template('views/userSearch.tpl')
+
+
+
 
 ###Data owner 
 @get('/owner/login')
@@ -78,6 +84,11 @@ def postownerlogin(session):
     users = controller.logIn(request, 'dataowner')
     return users
 
+@get('/owner/upload')
+def showuploadpage(session):
+	return template('views/uploaddata.tpl')
+
+
 
 #Generate secret key
 @post('/getkey')
@@ -87,4 +98,5 @@ def sendkey(session):
 
 #You can configure host, port and debug as per your requirements
 bottle.debug(True)
+port = os.getenv("PORT", 8000)
 run(host='localhost', port=8000, debug=True)
