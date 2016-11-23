@@ -8,7 +8,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/additional-methods.min.js"></script>
         <style type="text/css">
+            .error{
+                color:red;
+                margin-left: 33%
+            }
             .overlay {
                 background-color: rgba(1, 1, 1, 0.7);
                 bottom: 0;
@@ -26,6 +32,16 @@
                 left: 0;
                 right: 0;
                 margin-top: -9px;
+            }
+            table {
+                padding-left: 70px;
+                padding-right: 70px;
+                margin-top: 30px;
+                margin-left: 30px;
+            }
+            th, td{
+                padding-left: 70px;
+                padding-right: 70px;
             }
         </style>
     </head>
@@ -63,18 +79,16 @@
                 <button class="icon" style="height: 25px;padding-top: 3px;padding-right: 3px;padding-left: 3px;"><i class="glyphicon glyphicon-search" style="width: 14px;height: 30px;"></i></button>
             </div>
             <div class="form-group">
-                <table style="padding-left: 70px;padding-right: 70px;margin-top: 30px;margin-left: 245px;">
+                <table border="3px">
                     <tr>
-                        <th style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;"> Sr No. 
-                        <th>
-                        <th style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Search Results</th>
-                        <th style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Download</th>
+                        <th> Sr No.</th>
+                        <th>Search Results</th>
+                        <th>Download</th>
                     </tr>
                     <tr>
-                        <td style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">1.
-                        <td>
-                        <td style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Fuzzy Search</td>
-                        <td style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;"><button class="icon" class="btn btn-primary">Download  <i class="glyphicon glyphicon-download"></i></button></td>
+                        <td>1.</td>
+                        <td>Fuzzy Search</td>
+                        <td><button class="btn btn-info">Download  <i class="glyphicon glyphicon-download"></i></button></td>
                     </tr>
                 </table>
             </div>

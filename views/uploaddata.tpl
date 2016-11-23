@@ -5,9 +5,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/aehlke/tag-it/master/css/jquery.tagit.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/additional-methods.min.js"></script>
+        <script src="https://raw.githubusercontent.com/aehlke/tag-it/master/js/tag-it.min.js"></script>
         <style type="text/css">
+            .error{
+                color:red;
+                margin-left: 33%
+            }
             .overlay {
                 background-color: rgba(1, 1, 1, 0.7);
                 bottom: 0;
@@ -26,9 +33,38 @@
                 right: 0;
                 margin-top: -9px;
             }
+            table {
+                padding-left: 70px;
+                padding-right: 70px;
+                margin-top: 30px;
+                margin-left: 30px;
+            }
+            th, td{
+                padding-left: 70px;
+                padding-right: 70px;
+            }
+            .btn-file {
+                position: relative;
+                overflow: hidden;
+            }
+            /*.btn-file input[type=file] {
+                position: absolute;
+                top: 0;
+                right: 0;
+                min-width: 100%;
+                min-height: 100%;
+                font-size: 100px;
+                text-align: right;
+                filter: alpha(opacity=0);
+                opacity: 0;
+                outline: none;
+                background: white;
+                cursor: inherit;
+                display: block;
+            }*/
         </style>
     </head>
-    <body>
+    <body style="background-color: #003333">
         <div class="container" style="margin-top: 20px; padding-left: 700px;">
             <!-- <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html">Home</a></li>
@@ -48,44 +84,75 @@
                 </li>
             </ul> -->
         </div>
+        <div class="container" style="margin-top: 30px;background-color: #a3c2c2;width: 918px;margin-left: 250px;padding-left: 0px;padding-right: 0px;padding-top: 0px;padding-bottom: 30px;">
+            <div style="background-color: #000000">
+                <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Upload File</h2>
+            </div>
+            <div class="form-group">
+                <form enctype="multipart/form-data" method="POST" id="upload">            
+                    <label for="email" style="margin-left:350px">Select File:</label>
+                    <span class="btn btn-default btn-file">
+                        Browse <input type="file" name="documents" id="documents">
+                    </span>
+                    <div class="form-group">
+                        <label for="title" style="margin-left:350px">Title for file:</label>
+                        <input type="text " class="form-control" id="title" name="title" placeholder="" style="width:450px;margin-left: 350px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="keywords" style="margin-left:350px">Enter Keywords:</label>
+                        <input type="text" class="form-control" id="keywords" name="keywords" placeholder="" style="width:450px;margin-left: 350px;">
+                    </div>
+                    <div style="margin-left: 475px;">
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='user.html';" style="margin-left: 10px;">Back</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                    <table border="3px solid">
+                        <tr>
+                            <th> Sr No.</th>
+                            <th>Search Results</th>
+                            <th>Upload</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td>Fuzzy Search</td>
+                            <td>Uploaded</td>
+                            <td>
+                                <button class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="container" style="margin-top: 30px;">
-        <div class="form-group">
-            <label for="email" style="margin-left:350px">Select File:</label>
-            <div>
-                <button type="button" class="btn btn-primary" style="margin-left: 450px;margin-top: -55px;">Browse</button>
-            </div>
-            <div class="form-group">
-                <label for="uname" style="margin-left:350px">Title for file:</label>
-                <input type="text " class="form-control" id="uname" placeholder="" style="width:450px;margin-left: 350px;">
-            </div>
-            <div class="form-group">
-                <label for="psd" style="margin-left:350px">Enter Keywords:</label>
-                <input type="password" class="form-control" id="psd" placeholder="" style="width:450px;margin-left: 350px;">
-            </div>
-            <div style="margin-left: 475px;">
-                <button type="button" class="btn btn-primary">Upload</button>
-                <button type="button" class="btn btn-primary" onclick="location.href='user.html';" style="margin-left: 10px;">Back</button>
-            </div>
-            <div class="form-group">
-                <table style="padding-left: 70px;padding-right: 70px;margin-top: 30px;margin-left: 200px;">
-                    <tr>
-                        <th style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;"> Sr No. 
-                        <th>
-                        <th style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Search Results</th>
-                        <th style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Upload</th>
-                        <th style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Delete</th>
-                    </tr>
-                    <tr>
-                        <td style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">1.
-                        <td>
-                        <td style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Fuzzy Search</td>
-                        <td style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;">Uploaded</td>
-                        <td style="padding-left: 70px;padding-right: 70px;padding-bottom: 20px;"><button class="icon" class="btn btn-primary">Delete <i class="glyphicon glyphicon-trash"></i></button></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                //$("#keywords").tagit();
+                $("#upload").validate({
+                    rules:{
+                        documents:"required",
+                        keywords:"required"
+                    },
+                    messages:{
+                        documents:{
+                            "required":"Please upload a file"
+                        },
+                        keywords:{
+                            "required":"Please enter some keywords"
+                        }
+                    },
+                    errorPlacement: function(error, element){
+                        if(element.attr('id') == 'documents'){
+                            element.parent().after(error)
+                        }else{
+                            element.after(error)
+                        }
+                    },
+                });
+            });
+        </script>
     </body>
     <noscript>
         <div class="overlay">

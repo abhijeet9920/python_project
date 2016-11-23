@@ -67,3 +67,17 @@ def logIn(req, utype):
 		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1]}
 	else:
 		return {"status":"failed", "msg":"Please enter proper secret key, email and password combination"}
+
+
+def saveFile(path, user):
+	splited = path.split('/')
+	siz = len(splited)
+	fname = splited[siz-1]
+	c = database.conn.cursor()
+	try:
+		sql = 'INSERT INTO files values (NULL, "%s","%s","%d","%s")'%(fname,path,user,time.strftime('%Y-%m-%d %H:%M:%S'))
+		c.execute(sql)
+		database.conn.commit()
+		return {"status":"success", "msg":"New file added"}
+	except:
+		return {"status":"failed", "msg":"Failed to store file in database"}

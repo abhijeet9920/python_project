@@ -1,8 +1,13 @@
-from bottle import get, post, request, run, template, redirect
+from bottle import get, post, request, run, template, static_file, redirect
 from classes import controller
 import bottle
 import bottle_session
-import os 
+import os
+import time
+
+
+
+
 app = bottle.app()
 plugin = bottle_session.SessionPlugin()
 app.install(plugin)
@@ -88,6 +93,23 @@ def postownerlogin(session):
 def showuploadpage(session):
 	return template('views/uploaddata.tpl')
 
+@post('/owner/upload')
+def postupload(session):
+	title = request.forms.get('title')
+	upload = request.files.get('documents')
+	name, ext = os.path.splitext(upload.filename)
+	if title != "":
+		fname = "%s%s"%(title,ext)
+	else:
+		fname = upload.filename
+	fname = "%s_%s"%(time.strftime('%Y-%m-%d_%H:%M:%S'),fname)
+	save_path = "%s/uploads"%(os.getcwd())
+	if not os.path.exists(save_path):
+		os.makedirs(save_path)
+	file_path = "{path}/{file}".format(path=save_path, file=fname)
+	upload.save(file_path)
+	filesv = controller.saveFile(file_path,1)
+	return filesv
 
 
 #Generate secret key
@@ -95,6 +117,8 @@ def showuploadpage(session):
 def sendkey(session):
     secret = controller.sendSecret(request)
     return secret
+
+
 
 #You can configure host, port and debug as per your requirements
 bottle.debug(True)
