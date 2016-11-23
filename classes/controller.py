@@ -69,13 +69,13 @@ def logIn(req, utype):
 		return {"status":"failed", "msg":"Please enter proper secret key, email and password combination"}
 
 
-def saveFile(path, user):
+def saveFile(path, user, keys):
 	splited = path.split('/')
 	siz = len(splited)
 	fname = splited[siz-1]
 	c = database.conn.cursor()
 	try:
-		sql = 'INSERT INTO files values (NULL, "%s","%s","%d","%s")'%(fname,path,user,time.strftime('%Y-%m-%d %H:%M:%S'))
+		sql = 'INSERT INTO files values (NULL,"%s", "%s","%s","%d","%s")'%(keys,fname,path,user,time.strftime('%Y-%m-%d %H:%M:%S'))
 		c.execute(sql)
 		database.conn.commit()
 		return {"status":"success", "msg":"New file added"}

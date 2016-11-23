@@ -96,6 +96,7 @@ def showuploadpage(session):
 @post('/owner/upload')
 def postupload(session):
 	title = request.forms.get('title')
+	keywords = request.forms.get('keywords')
 	upload = request.files.get('documents')
 	name, ext = os.path.splitext(upload.filename)
 	if title != "":
@@ -108,7 +109,7 @@ def postupload(session):
 		os.makedirs(save_path)
 	file_path = "{path}/{file}".format(path=save_path, file=fname)
 	upload.save(file_path)
-	filesv = controller.saveFile(file_path,1)
+	filesv = controller.saveFile(file_path,1, keywords)
 	return filesv
 
 

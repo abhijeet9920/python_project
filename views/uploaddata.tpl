@@ -5,11 +5,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/aehlke/tag-it/master/css/jquery.tagit.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tag-it/2.0/css/jquery.tagit.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/jquery.validate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.1/additional-methods.min.js"></script>
-        <script src="https://raw.githubusercontent.com/aehlke/tag-it/master/js/tag-it.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tag-it/2.0/js/tag-it.js"></script>
         <style type="text/css">
             .error{
                 color:red;
@@ -100,7 +100,8 @@
                     </div>
                     <div class="form-group">
                         <label for="keywords" style="margin-left:350px">Enter Keywords:</label>
-                        <input type="text" class="form-control" id="keywords" name="keywords" placeholder="" style="width:450px;margin-left: 350px;">
+                        <input type="text" class="tagit-hidden-field" id="keywords" name="keywords" placeholder="" style="width:450px;margin-left: 350px;">
+                        <ul style="float:right" name="company" id="company"> </ul> 
                     </div>
                     <div style="margin-left: 475px;">
                         <button type="submit" class="btn btn-primary">Upload</button>
@@ -129,7 +130,7 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
-                //$("#keywords").tagit();
+                //$("#company").tagit("add", {label: 'tag', value: 12});
                 $("#upload").validate({
                     rules:{
                         documents:"required",
