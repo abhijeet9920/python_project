@@ -58,13 +58,13 @@ def logIn(req, utype):
 	pwd = req.forms.get('pwd')
 	secret = req.forms.get('secret')
 	c = database.conn.cursor()
-	sql = 'SELECT a.id as userid, a.email as email, a.username as uname, b.created_at as login_on from users a join login b on a.id=b.userid where a.email="%s" AND a.username="%s" AND a.password="%s" AND a.usertype="%s"AND b.secret="%s"'%(email,uname,pwd, utype,secret)
+	sql = 'SELECT a.*, b.created_at as login_on from users a join login b on a.id=b.userid where a.email="%s" AND a.username="%s" AND a.password="%s" AND a.usertype="%s"AND b.secret="%s"'%(email,uname,pwd, utype,secret)
 	loggedinusers = []
 	c.execute(sql)
 	loggedinusers = c.fetchone()
 	if loggedinusers:
 		print(loggedinusers)
-		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1]}
+		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1], "type":loggedinusers[3],"uname":loggedinusers[7]}
 	else:
 		return {"status":"failed", "msg":"Please enter proper secret key, email and password combination"}
 

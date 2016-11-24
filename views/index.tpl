@@ -49,6 +49,16 @@
                 </li>
                 <li><a href="#" style="color:#000000">About Us</a></li>
                 <li><a href="#" style="color:#000000">Contact Us</a></li>
+                %if session['name'] != '' and session['name'] != None:
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="color:#000000">Welcome {{session['name']}}</a>
+                    <ul class="dropdown-menu" style="margin-top: 5px;">
+                    %if session['utype'] == 'dataowner':
+                        <li><a href="/owner/upload" align="center">Upload files</a></li>
+                    %elif session['utype'] == 'user':
+                        <li><a href="/user/findfile" align="center">Upload files</a></li>
+                    %end
+                    </ul>
+                %end
             </ul>
         </div>
         <div class="container" style="margin-top: 30px;">
