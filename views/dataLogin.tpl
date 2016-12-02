@@ -78,8 +78,8 @@
                     <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Dataowner Login</h2>
                 </div>
                 <div class="form-group">
-                    <label for="email" style="margin-left:300px">Email Id:</label>
-                    <input type="text " class="form-control" name="email" id="email" placeholder="Enter your Email-Id" style="width:450px;margin-left: 300px;">
+                    <label for="mobile" style="margin-left:300px">Mobile:</label>
+                    <input type="text " class="form-control" name="mobile" id="mobile" placeholder="Enter Mobile" style="width:450px;margin-left: 300px;">
                 </div>
                 <div>
                     <button type="button" class="btn btn-primary" style="margin-left:780px;margin-top: -50px;" id="getsecret">Send</button>
@@ -107,13 +107,13 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#getsecret").on('click', function(){
-                    var email = $("#email").val();
+                    var mobile = $("#mobile").val();
                     var uname = $("#uname").val();
-                    if( email !== "" && uname !== ""){
+                    if( mobile !== "" && uname !== ""){
                         $.ajax({
                             url: '/getkey',
                             type: 'POST',
-                            data:{email:email,username:uname},
+                            data:{mobile:mobile,username:uname},
                             beforeSend:function(){
                                 $(".loader").show();
                             },
@@ -128,20 +128,19 @@
                         });
                     }
                     else{
-                        alert("Please enter your email and username");
+                        alert("Please enter your mobile and username");
                     }
                 });
                 $("#ownerlogin").validate({
                     rules:{
-                        email:{"required":true, "email": true},
+                        mobile:{"required":true},
                         uname:"required",
                         pwd:"required",
                         secret:"required"
                     },
                     messages:{
-                        email:{
-                            "required":"Please enter your email",
-                            "email": "Please enter valid email"
+                        mobile:{
+                            "required":"Please enter your mobile"
                         },
                         uname:"Please enter your username",
                         pwd:"Please enter password",
