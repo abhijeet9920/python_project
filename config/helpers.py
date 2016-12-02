@@ -12,7 +12,7 @@ def random_string(length):
 
 def sendMail(to_addr_list, subject, message):
     sg = sendgrid.SendGridAPIClient(apikey=mails.apikey)
-    from_email = Email("test@example.com")
+    from_email = Email("support@remilda.com")
     #subject = "Hello World from the SendGrid Python Library!"
     try:
         to_email = Email(to_addr_list)
