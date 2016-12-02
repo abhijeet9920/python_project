@@ -26,23 +26,21 @@ def insertUser(req, utype):
 
 def sendSecret(req):
 	uname = req.forms.get('username');
-	email = req.forms.get('email');
+	mobile = req.forms.get('mobile');
 	secret = helpers.random_string(64)
 	c = database.conn.cursor()
-	sql = "SELECT id from users where email='%s' AND username='%s'"%(email,uname)
+	sql = "SELECT id from users where phoneno='%s' AND username='%s'"%(mobile,uname)
 	users = []
 	c.execute(sql)
 	users = c.fetchone()
 	if users:
 		uid = users[0]
 		if uid != 0:
-			message = "<h2>%s <b>%s,</b></h2> %s\n%s\n<span style='color:blue;'>%s</span>"%("Welcome",uname,"Thank you for login to our system","Use following key to login",secret)
-			sub = "Your secret key for login on %s"%(time.strftime('%A, %d %b %Y %I:%M %p'))
-			status = helpers.secretKeyMail(email,sub, message)
+			message = "Welcome %s, Your otp is : %s"%(uname, secret)
+			status = helpers.secretKeySMS(mobile, message)
 			query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
 			c.execute(query)
 			msg = status
-			#msg = {"status":"success", "message":"A secret key is sent, Please check your mail"}
 		else:
 			msg ={"status":"failed", "message": "Please provide correct email and username combination"}
 	else:
