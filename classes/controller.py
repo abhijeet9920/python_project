@@ -38,7 +38,7 @@ def sendSecret(req):
 		if uid != 0:
 			message = "<h2>%s <b>%s,</b></h2> %s\n%s\n<span style='color:blue;'>%s</span>"%("Welcome",uname,"Thank you for login to our system","Use following key to login",secret)
 			sub = "Your secret key for login on %s"%(time.strftime('%A, %d %b %Y %I:%M %p'))
-			status = helpers.secretKeyMail(email,sub, message)
+			status = helpers.sendMail(email,sub, message)
 			query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
 			c.execute(query)
 			msg = status
