@@ -1,8 +1,5 @@
 /config/__pycache__
+config/database.py
 /classes/__pycache__
 /uploads/
-<<<<<<< HEAD
 /develop
-
-=======
->>>>>>> 467b6a19124006c4b163b14ea27f204089a67aa6
