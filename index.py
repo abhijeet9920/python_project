@@ -152,8 +152,8 @@ def showloader():
 #################################################################################################
 #You can configure host, port and debug as per your requirements
 bottle.debug(True)
-# host = os.getenv("HOST", '0.0.0.0')
-# port = os.getenv("PORT", 5000)
-port = os.getenv("PORT", 8000)
-host = os.getenv("HOST", 'localhost')
+host = os.getenv("HOST", '0.0.0.0')
+port = os.getenv("PORT", 5000)
+# port = os.getenv("PORT", 8000)
+# host = os.getenv("HOST", 'localhost')
 run(host=host, port=port, debug=True)
