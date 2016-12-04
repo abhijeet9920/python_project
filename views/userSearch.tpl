@@ -57,10 +57,10 @@
             <div class="loader"></div>
             <form method="GET">
                 <div class="form-group">
-                    <input type="text " class="form-control" id="fname" placeholder="Search" style="width:450px;margin-left: 350px;">
+                    <input type="text " name="fname" class="form-control" id="fname" placeholder="Search" style="width:450px;margin-left: 200px;">
                 </div>
-                <div style="margin-left: 810px;margin-top: -45px;">
-                    <button class="icon" style="height: 25px;padding-top: 3px;padding-right: 3px;padding-left: 3px;" type="submit"><i class="glyphicon glyphicon-search" style="width: 14px;height: 30px;"></i></button>
+                <div style="margin-left: 700px;margin-top: -45px;" class="form-group">
+                    <button class="btn btn-info" type="submit">Search <i class="glyphicon glyphicon-search" style="width: 14px;height: 30px;"></i></button>
                 </div>
             </form>
             <br>
@@ -75,7 +75,10 @@
                 </tr>
                 %for data in files:
                     <tr>
-                        <td>{{data[0]}}</td>
+                        <td>
+                            {{data[0]}}
+                            <input type="hidden" value={{data[5]}}>
+                        </td>
                         <td>{{data[2]}}</td>
                         <td>{{data[3].strftime('%A, %d %b %Y %I:%M %p')}}</td>
                         <td>{{data[4]}}</td>

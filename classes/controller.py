@@ -85,9 +85,14 @@ def saveFile(path, user, keys):
 		return {"status":"failed", "msg":"Failed to store file in database"}
 
 
-def getFiles():
+def getFiles(name):
 	c = database.conn.cursor()
-	sql = "SELECT a.id, a.path, a.filename, a.created_at, concat(b.fname, ' ',b.lname) from files as a JOIN users as b on a.uploadby = b.id";
+	if name != '':
+		sql = "SELECT a.id, a.path, a.filename, a.created_at, concat(b.fname, ' ',b.lname), a.keywords from files as a JOIN users as b on a.uploadby = b.id where a.filename like '%{0}%' or a.keywords like '%{1}%'".format(name,name);
+		print(sql)
+	else:
+		sql = "SELECT a.id, a.path, a.filename, a.created_at, concat(b.fname, ' ',b.lname), a.keywords from files as a JOIN users as b on a.uploadby = b.id";
 	c.execute(sql);
 	cur = c.fetchall()
+	database.conn.commit()
 	return cur

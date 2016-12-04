@@ -109,7 +109,7 @@
                     </div>
                 </form>
                 <div class="form-group">
-                    <table border="3px solid">
+                    <!-- <table border="3px solid">
                         <tr>
                             <th> Sr No.</th>
                             <th>Search Results</th>
@@ -124,7 +124,7 @@
                                 <button class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></button>
                             </td>
                         </tr>
-                    </table>
+                    </table> -->
                 </div>
             </div>
         </div>
