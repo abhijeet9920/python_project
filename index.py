@@ -53,7 +53,8 @@ def postuserlogin(session):
 
 @get('/user/findfile')
 def find(session):
-	return template('views/userSearch.tpl')
+    files = controller.getFiles();
+    return template('views/userSearch.tpl', files=files)
 
 
 
@@ -86,7 +87,7 @@ def postownerreg(session):
 
 @post('/owner/login/post')
 def postownerlogin(session):
-    users = controller.logIn(request, 'dataowner')
+    users = controller.loggedIn(request, 'dataowner')
     return users
 
 @get('/owner/upload')

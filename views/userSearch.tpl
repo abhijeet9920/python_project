@@ -33,12 +33,12 @@
                 right: 0;
                 margin-top: -9px;
             }
-            table {
+            /*table {
                 padding-left: 70px;
                 padding-right: 70px;
                 margin-top: 30px;
                 margin-left: 30px;
-            }
+            }*/
             th, td{
                 padding-left: 70px;
                 padding-right: 70px;
@@ -78,19 +78,27 @@
             <div style="margin-left: 810px;margin-top: -45px;">
                 <button class="icon" style="height: 25px;padding-top: 3px;padding-right: 3px;padding-left: 3px;"><i class="glyphicon glyphicon-search" style="width: 14px;height: 30px;"></i></button>
             </div>
-            <div class="form-group">
-                <table border="3px">
+            <br>
+            <br>
+            <table border="3px" class="table">
+                <tr>
+                    <th> Id.</th>
+                    <th>File Name</th>
+                    <th>Upload On</th>
+                    <th>Upload By</th>
+                    <th>Action</th>
+                </tr>
+                %for data in files:
                     <tr>
-                        <th> Sr No.</th>
-                        <th>Search Results</th>
-                        <th>Download</th>
-                    </tr>
-                    <tr>
-                        <td>1.</td>
-                        <td>Fuzzy Search</td>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[2]}}</td>
+                        <td>{{data[3].strftime('%A, %d %b %Y %I:%M %p')}}</td>
+                        <td>{{data[4]}}</td>
                         <td><button class="btn btn-info">Download  <i class="glyphicon glyphicon-download"></i></button></td>
                     </tr>
-                </table>
+                %end
+            </table>
+            <div>
             </div>
         </div>
     </body>

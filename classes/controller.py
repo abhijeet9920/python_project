@@ -64,6 +64,8 @@ def logIn(req, utype):
 	loggedinusers = c.fetchone()
 	if loggedinusers:
 		print(loggedinusers)
+		query = 'INSERT INTO session VALUES (%s, %d, %s, CURRENT_TIMESTAMP, 1)';
+		query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
 		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1], "type":loggedinusers[3],"uname":loggedinusers[7]}
 	else:
 		return {"status":"failed", "msg":"Please enter proper secret key, email and password combination"}
@@ -81,3 +83,11 @@ def saveFile(path, user, keys):
 		return {"status":"success", "msg":"New file added"}
 	except:
 		return {"status":"failed", "msg":"Failed to store file in database"}
+
+
+def getFiles():
+	c = database.conn.cursor()
+	sql = "SELECT a.id, a.path, a.filename, a.created_at, concat(b.fname, ' ',b.lname) from files as a JOIN users as b on a.uploadby = b.id";
+	c.execute(sql);
+	cur = c.fetchall()
+	return cur
