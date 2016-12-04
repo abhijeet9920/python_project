@@ -1,10 +1,10 @@
-from bottle import get, post, request, run, template, static_file, redirect
+from bottle import get, post, request, run, template, static_file, redirect, static_file
 from classes import controller
 import bottle
 import bottle_session
 import os
 import time
-
+import cgi
 
 
 
@@ -119,6 +119,20 @@ def postupload(session):
 def sendkey(session):
     secret = controller.sendSecret(request)
     return secret
+
+@post('/download')
+def downloafile():
+    name = request.forms.get('name')
+    path = request.forms.get('path')
+    newpath = path.split(name);
+    try:
+        return static_file(name, root=newpath[0], download=name)
+    except:
+        return {"status":"failed","msg":"File not found"};
+
+@get('/loader')
+def showloader():
+    return static_file('loader.gif', root=os.getcwd());
 
 
 

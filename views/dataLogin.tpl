@@ -26,7 +26,8 @@
                 height: 100%;
                 z-index: 56;
                 opacity: 0.5;
-                background: url('http://interactive.channelvn.net/Published/Quiz/Styles/images/quiz-loading.gif') 50% 50% no-repeat rgb(204, 204, 204);
+                /*background: url('http://interactive.channelvn.net/Published/Quiz/Styles/images/quiz-loading.gif') 50% 50% no-repeat rgb(204, 204, 204);*/
+                background: url('/loader') 50% 50% no-repeat rgb(204, 204, 204);
             }
             .overlay {
                 background-color: rgba(1, 1, 1, 0.7);

@@ -12,10 +12,10 @@
         <style type="text/css">
             .error{
                 color:red;
-                margin-left: 33%
+                margin-left: 33%;
             }
             .success:{
-                border: green solid 2px,
+                border: green solid 2px;
             }
             .overlay {
                 background-color: rgba(1, 1, 1, 0.7);
