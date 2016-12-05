@@ -63,9 +63,9 @@ def logIn(req, utype):
 	c.execute(sql)
 	loggedinusers = c.fetchone()
 	if loggedinusers:
-		print(loggedinusers)
-		query = 'INSERT INTO session VALUES (%s, %d, %s, CURRENT_TIMESTAMP, 1)';
-		query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
+		# print(loggedinusers)
+		# query = 'INSERT INTO session VALUES (%s, %d, %s, CURRENT_TIMESTAMP, 1)';
+		# query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
 		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1], "type":loggedinusers[3],"uname":loggedinusers[7]}
 	else:
 		return {"status":"failed", "msg":"Please enter proper secret key, email and password combination"}

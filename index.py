@@ -83,7 +83,7 @@ def ownerlogin(session):
 
 @post('/owner/login/post')
 def postownerlogin(session):
-    users = controller.loggedIn(request, 'dataowner')
+    users = controller.logIn(request, 'dataowner')
     return users
 
 
