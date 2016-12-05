@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group">
                     <label for="phone" style="margin-left:300px">Phone no:</label>
-                    <input type="text " class="form-control" name="phone" id="phone" placeholder="Enter your Phone number" style="width:450px;margin-left: 300px;">
+                    <input type="text " class="form-control" name="phone" id="phone" placeholder="Enter your Phone number" style="width:450px;margin-left: 300px;" maxlength="10">
                 </div>
                 <div class="form-group">
                     <label for="email" style="margin-left:300px">Email:</label>
@@ -106,13 +106,31 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
+                $.validator.addMethod("uniquemail", 
+                    function(value, element) {
+                        var result = false;
+                        $.ajax({
+                            type:"POST",
+                            async: false,
+                            url: "/checkemail", // script to validate in server side
+                            data: {email: value},
+                            success: function(data) {
+                                console.log(data);
+                                result = (data.status == "success") ? true : false;
+                            }
+                        });
+                        // return true if username is exist in database
+                        return result; 
+                    }, 
+                    "This email is already taken! Try another."
+                );
                 $("#userreg").validate({
                     rules:{
                         fname:"required",
                         lname:"required",
                         address:"required",
                         phone:{"required":true, "digits":true},
-                        email:{"required":true, "email": true},
+                        email:{"required":true, "email": true, "uniquemail": true},
                         uname:"required",
                         pwd:"required"
                     },

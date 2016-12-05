@@ -157,12 +157,17 @@ def sendkey(session):
 def showloader():
     return static_file('loader.gif', root = os.getcwd());
 
+@post('/checkemail')
+def checkIfexist():
+    email = request.forms.get('email')
+    exists = controller.checkIfmail(email)
+    return exists
 
 #################################################################################################
 #You can configure host, port and debug as per your requirements
 bottle.debug(True)
-# host = os.getenv("HOST", '0.0.0.0')
-# port = os.getenv("PORT", 5000)
-port = os.getenv("PORT", 8000)
-host = os.getenv("HOST", 'localhost')
+host = os.getenv("HOST", '0.0.0.0')
+port = os.getenv("PORT", 5000)
+# port = os.getenv("PORT", 8000)
+# host = os.getenv("HOST", 'localhost')
 run(host = host, port = port, debug = True)

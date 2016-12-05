@@ -96,3 +96,17 @@ def getFiles(name):
 	cur = c.fetchall()
 	database.conn.commit()
 	return cur
+
+
+def checkIfmail(email):
+	c = database.conn.cursor()
+	sql = "SELECT id,email from users where email = '%s'"%(email)
+	print(sql)
+	user = []
+	c.execute(sql);
+	user = c.fetchone()
+	print(user)
+	if user:
+		return {"status":"success", "msg":"user exists", "id":user[0]}
+	else:
+		return {"status":"failed","msg":"user not found", "id":0}
