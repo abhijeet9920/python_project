@@ -5,7 +5,7 @@ import bottle_session
 import os
 import time
 import cgi
-
+import re
 
 
 app = bottle.app()
@@ -125,7 +125,7 @@ def postupload(session):
 		fname = "%s%s"%(title,ext)
 	else:
 		fname = upload.filename
-	fname = "%s_%s"%(time.strftime('%Y-%m-%d_%H:%M:%S'),fname)
+	fname = "%s_%s"%(time.strftime('%Y-%m-%d_%H:%M:%S'),re.sub(r"\s+", '-', fname))
 	save_path = "%s/uploads"%(os.getcwd())
 	if not os.path.exists(save_path):
 		os.makedirs(save_path)
