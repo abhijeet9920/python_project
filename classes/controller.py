@@ -80,9 +80,9 @@ def saveFile(path, user, keys):
 		sql = 'INSERT INTO files values (NULL,"%s", "%s","%s","%d","%s")'%(keys,fname,path,user,time.strftime('%Y-%m-%d %H:%M:%S'))
 		c.execute(sql)
 		database.conn.commit()
-		return {"status":"success", "msg":"New file added"}
+		return {"status":"success", "msg":"New file added", "class":"alert alert-success"}
 	except:
-		return {"status":"failed", "msg":"Failed to store file in database"}
+		return {"status":"failed", "msg":"Failed to store file in database", "class":"alert alert-danger"}
 
 
 def getFiles(name):

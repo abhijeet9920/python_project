@@ -89,6 +89,9 @@
                 <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Upload File</h2>
             </div>
             <div class="form-group">
+                %if msg != '':
+                    <p class="{{classname}}">{{msg}}</p>
+                %end
                 <form enctype="multipart/form-data" method="POST" id="upload">            
                     <label for="email" style="margin-left:350px">Select File:</label>
                     <span class="btn btn-default btn-file">
