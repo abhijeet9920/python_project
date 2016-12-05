@@ -100,13 +100,13 @@ def getFiles(name):
 
 def checkIfmail(email):
 	c = database.conn.cursor()
-	sql = "SELECT id,email from users where email = '%s'"%(email)
+	sql = "SELECT count(email) from users where email = '%s'"%(email)
 	print(sql)
 	user = []
 	c.execute(sql);
 	user = c.fetchone()
-	print(user)
-	if user:
-		return {"status":"success", "msg":"user exists", "id":user[0]}
+	print(user[0])
+	if user[0] > 0:
+		return {"status":True, "msg":"user exists"}
 	else:
-		return {"status":"failed","msg":"user not found", "id":0}
+		return {"status":False,"msg":"user not found"}

@@ -106,24 +106,22 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
-                $.validator.addMethod("uniquemail", 
-                    function(value, element) {
-                        var result = false;
-                        $.ajax({
-                            type:"POST",
-                            async: false,
-                            url: "/checkemail", // script to validate in server side
-                            data: {email: value},
-                            success: function(data) {
-                                console.log(data);
-                                result = (data.status == "success") ? true : false;
+                $("#email").on("change", function(){
+                    var value = $(this).val();
+                    $.ajax({
+                        type:"POST",
+                        url: "/checkemail", // script to validate in server side
+                        data: {email: value},
+                        success: function(data) {
+                            console.log(data);
+                            if(data.status === true){
+                                var html = '<label id="email-error" class="error" for="email">Please choose another email</label>';
+                                console.log(html);
+                                $("#email").after(html)
                             }
-                        });
-                        // return true if username is exist in database
-                        return result; 
-                    }, 
-                    "This email is already taken! Try another."
-                );
+                        }
+                    });
+                });
                 $("#userreg").validate({
                     rules:{
                         fname:"required",
