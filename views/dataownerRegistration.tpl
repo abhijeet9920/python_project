@@ -105,13 +105,31 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function(){
+                $.validator.addMethod("uniquemail", 
+                    function(value, element) {
+                        var result = false;
+                        $.ajax({
+                            type:"POST",
+                            async: false,
+                            url: "/checkemail", // script to validate in server side
+                            data: {email: value},
+                            success: function(data) {
+                                console.log(data);
+                                result = (data.status == "success") ? true : false;
+                            }
+                        });
+                        // return true if username is exist in database
+                        return result; 
+                    }, 
+                    "This email is already taken! Try another."
+                );
                 $("#ownerreg").validate({
                     rules:{
                         fname:"required",
                         lname:"required",
                         address:"required",
                         phone:{"required":true, "digits":true},
-                        email:{"required":true, "email": true},
+                        email:{"required":true, "email": true, "uniquemail": true},
                         uname:"required",
                         pwd:"required"
                     },
