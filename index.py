@@ -6,6 +6,16 @@ import os
 import time
 import cgi
 import re
+from beaker.middleware import SessionMiddleware
+
+session_opts = {
+    'session.type': 'file',
+    'session.cookie_expires': 300,
+    'session.data_dir': './data',
+    'session.auto': True
+}
+
+sesapp = SessionMiddleware(bottle.app(), session_opts)
 
 
 app = bottle.app()
@@ -13,8 +23,13 @@ plugin = bottle_session.SessionPlugin()
 app.install(plugin)
 
 @ get('/')
-def index(session):
-    return template('views/index.tpl')
+def index():
+    session = bottle.request.environ.get('beaker.session')
+    print(session.get('logged'));
+    if session.get('logged'):
+        return template('views/index.tpl', session=session.get('logged'))
+    else:
+        return template('views/index.tpl', session='')
 
 ###################################################################################################
 
@@ -24,9 +39,12 @@ def userlogin(session): #Login page
     return template('views/userLogin.tpl')
 
 @ post('/user/login/post')
-def postuserlogin(session):
+def postuserlogin():
     users = controller.logIn(request, 'user')
-    return users
+    s = bottle.request.environ.get('beaker.session')
+    s['logged'] = users
+    s.save()
+    redirect('/')
 
 
 #-- -- -- --Register view for user & POST register save-- -- -- -- -- -- -- -- -- -- --
@@ -84,7 +102,10 @@ def ownerlogin(session): #Login page
 @ post('/owner/login/post')
 def postownerlogin(session):
     users = controller.logIn(request, 'dataowner')
-    return users
+    s = bottle.request.environ.get('beaker.session')
+    s['logged'] = users
+    s.save()
+    redirect('/')
 
 
 #-- -- -- --Register view for owner & POST register save-- -- -- -- -- -- -- -- -- -- --
@@ -112,18 +133,27 @@ def postownerreg(session):
 # -- -- -- --Upload view for owner & POST upload-- -- -- -- -- -- -- -- -- -- --
 @get('/owner/upload')
 def showuploadpage(session):
-    if session['msg'] != ''and session['clsname'] != '':
-        msg = session['msg']
-        classname = session['clsname']
-        session['status'] = ''
-        session['msg'] = ''
-    else :
-        msg = ''
-        classname = ''
-    return template('views/uploaddata.tpl', classname = classname, msg = msg)
+    login = bottle.request.environ.get('beaker.session')
+    if login.get('logged'):
+        if session['msg'] != ''and session['clsname'] != '':
+            msg = session['msg']
+            classname = session['clsname']
+            session['status'] = ''
+            session['msg'] = ''
+        else :
+            msg = ''
+            classname = ''
+        user = login.get('logged')
+        files = controller.getFiles(user['id'])
+        print(files);
+        return template('views/uploaddata.tpl', classname = classname, msg = msg, login=user, files=files)
+    else:
+        redirect('/')
 
 @ post('/owner/upload')
 def postupload(session):
+    login = bottle.request.environ.get('beaker.session')
+    loggeduser = login.get('logged');
     title = request.forms.get('title')
     keywords = request.forms.get('keywords')
     upload = request.files.get('documents')
@@ -138,7 +168,7 @@ def postupload(session):
         os.makedirs(save_path)
     file_path = "{path}/{file}".format(path = save_path, file = fname)
     upload.save(file_path)
-    filesv = controller.saveFile(file_path, 1, keywords)# upload.save(file_path)
+    filesv = controller.saveFile(file_path, loggeduser['id'], keywords)# upload.save(file_path)
     session['clsname'] = filesv['class']
     session['msg'] = filesv['msg']
     redirect('/owner/upload')
@@ -166,8 +196,8 @@ def checkIfexist():
 #################################################################################################
 #You can configure host, port and debug as per your requirements
 bottle.debug(True)
-host = os.getenv("HOST", '0.0.0.0')
-port = os.getenv("PORT", 5000)
-# port = os.getenv("PORT", 8000)
-# host = os.getenv("HOST", 'localhost')
-run(host = host, port = port, debug = True)
+# host = os.getenv("HOST", '0.0.0.0')
+# port = os.getenv("PORT", 5000)
+port = os.getenv("PORT", 8000)
+host = os.getenv("HOST", 'localhost')
+run(app=sesapp ,host = host, port = port, debug = True)

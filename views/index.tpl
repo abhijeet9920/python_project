@@ -30,9 +30,9 @@
     </head>
     <body style="background-color: #003333">
         <h2 style="color:#ffffff;margin-left: 95px;">ENSURING DATA SECURITY AND FUZZY SEARCHING OVER AN ENCRYPTED DATA</h2>
-        <div class="container" style="margin-top: 20px;padding-left: 475px;background-color: #a3c2c2;margin-left: 250px;margin-right: 150px;width: 915px;">
+        <div class="container" style="margin-top: 20px;padding-left: 475px;background-color: #a3c2c2;margin-left: 250px;margin-right: 150px;width: 70%;">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html" style="color:#000000">Home</a></li>
+                <li class="active"><a href="/" style="color:#000000">Home</a></li>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="color:#000000">Login</a>
                     <ul class="dropdown-menu" style="margin-top: 5px;">
@@ -49,6 +49,19 @@
                 </li>
                 <li><a href="#" style="color:#000000">About Us</a></li>
                 <li><a href="#" style="color:#000000">Contact Us</a></li>
+                %if session:
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle" style="color:#000000">Welcome {{session['uname']}}</a>
+                        <ul class="dropdown-menu" style="margin-top: 5px;">
+                            %if session['type'] == 'user':
+                                <li><a href="/user/findfile" align="center">Download Files</a></li>
+                            %elif session['type'] == 'dataowner':
+                                <li><a href="/owner/upload" align="center">Upload Files</a></li>
+                            %end
+                            <li><a href="/logout" align="center">Logout</a></li>
+                        </ul>
+                    </li>
+                %end
             </ul>
         </div>
         <div class="container" style="margin-top: 30px;">

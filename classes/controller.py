@@ -63,9 +63,6 @@ def logIn(req, utype):
 	c.execute(sql)
 	loggedinusers = c.fetchone()
 	if loggedinusers:
-		# print(loggedinusers)
-		# query = 'INSERT INTO session VALUES (%s, %d, %s, CURRENT_TIMESTAMP, 1)';
-		# query = 'INSERT INTO login values (%d, "%s", "%s")'%(uid,secret,time.strftime('%Y-%m-%d %H:%M:%S'))
 		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1], "type":loggedinusers[3],"uname":loggedinusers[7]}
 	else:
 		return {"status":"failed", "msg":"Please enter proper secret key, email and password combination"}
@@ -101,12 +98,19 @@ def getFiles(name):
 def checkIfmail(email):
 	c = database.conn.cursor()
 	sql = "SELECT count(email) from users where email = '%s'"%(email)
-	print(sql)
 	user = []
 	c.execute(sql);
 	user = c.fetchone()
-	print(user[0])
 	if user[0] > 0:
 		return {"status":True, "msg":"user exists"}
 	else:
 		return {"status":False,"msg":"user not found"}
+
+
+def getFiles(id):
+	c = database.conn.cursor()
+	sql = "SELECT * from files where uploadby = %d"%(id);
+	c.execute(sql)
+	data = c.fetchall();
+	print(data)
+	return data

@@ -33,12 +33,12 @@
                 right: 0;
                 margin-top: -9px;
             }
-            table {
+            /*table {
                 padding-left: 70px;
                 padding-right: 70px;
                 margin-top: 30px;
                 margin-left: 30px;
-            }
+            }*/
             th, td{
                 padding-left: 70px;
                 padding-right: 70px;
@@ -67,7 +67,7 @@
     <body style="background-color: #003333">
         <div class="container" style="margin-top: 20px; padding-left: 700px;">
             <!-- <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle">Login</a>
                     <ul class="dropdown-menu" style="margin-top: 5px;">
@@ -89,9 +89,12 @@
                 <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">Upload File</h2>
             </div>
             <div class="form-group">
+                
                 %if msg != '':
                     <p class="{{classname}}">{{msg}}</p>
                 %end
+                <h2><center>Welcome {{login['uname']}}</center></h2>
+                
                 <form enctype="multipart/form-data" method="POST" id="upload">            
                     <label for="email" style="margin-left:350px">Select File:</label>
                     <span class="btn btn-default btn-file">
@@ -100,6 +103,7 @@
                     <div class="form-group">
                         <label for="title" style="margin-left:350px">Title for file:</label>
                         <input type="text " class="form-control" id="title" name="title" placeholder="" style="width:450px;margin-left: 350px;">
+                        <input type="hidden" name="userid" value={{login['id']}}>
                     </div>
                     <div class="form-group">
                         <label for="keywords" style="margin-left:350px">Enter Keywords:</label>
@@ -112,22 +116,26 @@
                     </div>
                 </form>
                 <div class="form-group">
-                    <!-- <table border="3px solid">
+                    <table border="3px solid" class="table">
                         <tr>
-                            <th> Sr No.</th>
-                            <th>Search Results</th>
-                            <th>Upload</th>
+                            <th>Files</th>
+                            <th>Download</th>
                             <th>Delete</th>
                         </tr>
-                        <tr>
-                            <td>1.</td>
-                            <td>Fuzzy Search</td>
-                            <td>Uploaded</td>
-                            <td>
-                                <button class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></button>
-                            </td>
-                        </tr>
-                    </table> -->
+                        %for data in files:
+                            <tr>
+                                <td>{{data[2]}}</td>
+                                <td>
+                                    <form method="POST" action="/download">
+                                        <input type="hidden" value={{data[2]}} class="fname" name="name">
+                                        <input type="hidden" value={{data[1]}} class="fpath" name="path">
+                                        <button class="btn btn-info download" type="submit">Download  <i class="glyphicon glyphicon-download"></i></button>
+                                    </form>
+                                </td>
+                                <td><button class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></button></td>
+                            </tr>
+                        %end
+                    </table>
                 </div>
             </div>
         </div>
