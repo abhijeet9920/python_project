@@ -82,7 +82,7 @@ def saveFile(path, user, keys):
 		return {"status":"failed", "msg":"Failed to store file in database", "class":"alert alert-danger"}
 
 
-def getFiles(name):
+def getFilesforsearch(name):
 	c = database.conn.cursor()
 	if name != '':
 		sql = "SELECT a.id, a.path, a.filename, a.created_at, concat(b.fname, ' ',b.lname), a.keywords from files as a JOIN users as b on a.uploadby = b.id where a.filename like '%{0}%' or a.keywords like '%{1}%'".format(name,name);
@@ -107,9 +107,9 @@ def checkIfmail(email):
 		return {"status":False,"msg":"user not found"}
 
 
-def getFiles(id):
+def getFiles(ids):
 	c = database.conn.cursor()
-	sql = "SELECT * from files where uploadby = %d"%(id);
+	sql = "SELECT * from files where uploadby = %d"%(ids);
 	c.execute(sql)
 	data = c.fetchall();
 	print(data)

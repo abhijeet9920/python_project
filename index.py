@@ -72,9 +72,14 @@ def postuserreg(session):
 # -- -- -- -- -- -Search file-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 @get('/user/findfile')
 def find(session):
-    name = request.GET.get('fname') if request.GET.get('fname') else '';
-    files = controller.getFiles(name);
-    return template('views/userSearch.tpl', files = files)
+    login = bottle.request.environ.get('beaker.session')
+    if login.get('logged'):
+        name = request.GET.get('fname') if request.GET.get('fname') else '';
+        files = controller.getFilesforsearch(name);
+        user = login.get('logged')
+        return template('views/userSearch.tpl', files = files, session=user)
+    else:
+        redirect('/')
 
 
 # -- -- -- -- -- -- -- -Download searched files-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
@@ -196,8 +201,8 @@ def checkIfexist():
 #################################################################################################
 #You can configure host, port and debug as per your requirements
 bottle.debug(True)
-# host = os.getenv("HOST", '0.0.0.0')
-# port = os.getenv("PORT", 5000)
-port = os.getenv("PORT", 8000)
-host = os.getenv("HOST", 'localhost')
+host = os.getenv("HOST", '0.0.0.0')
+port = os.getenv("PORT", 5000)
+# port = os.getenv("PORT", 8000)
+# host = os.getenv("HOST", 'localhost')
 run(app=sesapp ,host = host, port = port, debug = True)

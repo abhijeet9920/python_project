@@ -54,6 +54,7 @@
             <div style="background-color: #000000">
                 <h2 align="center" style="margin-top: 0px;color:#ffffff;height: 55px;padding-top: 10px;padding-bottom: 10px;">User Search</h2>
             </div>
+            <h2><center>Welcome {{session['uname']}}</center></h2>
             <div class="loader"></div>
             <form method="GET">
                 <div class="form-group">
