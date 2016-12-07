@@ -109,7 +109,8 @@ def checkIfmail(email):
 
 def getFiles(ids):
 	c = database.conn.cursor()
-	sql = "SELECT * from files where uploadby = %d"%(ids);
+	#sql = "SELECT * from files where uploadby = %d"%(ids);
+	sql = "SELECT a.id, a.path, a.filename, a.created_at, concat(b.fname, ' ',b.lname), a.keywords from files as a JOIN users as b on a.uploadby = b.id where a.uploadby = %d"%(ids);
 	c.execute(sql)
 	data = c.fetchall();
 	print(data)
