@@ -25,7 +25,6 @@ app.install(plugin)
 @ get('/')
 def index():
     session = bottle.request.environ.get('beaker.session')
-    print(session.get('logged'));
     if session.get('logged'):
         return template('views/index.tpl', session=session.get('logged'))
     else:
@@ -41,10 +40,13 @@ def userlogin(session): #Login page
 @ post('/user/login/post')
 def postuserlogin():
     users = controller.logIn(request, 'user')
-    s = bottle.request.environ.get('beaker.session')
-    s['logged'] = users
-    s.save()
-    redirect('/')
+    if(users['status'] == 'success'):
+        s = bottle.request.environ.get('beaker.session')
+        s['logged'] = users
+        s.save()
+        redirect('/')
+    else:
+        redirect('/user/login')
 
 
 #-- -- -- --Register view for user & POST register save-- -- -- -- -- -- -- -- -- -- --
@@ -61,7 +63,7 @@ def userreg(session): #Login page
     return template('views/userRegistration.tpl', classname = classs, msg = msg)
 
 
-@ post('/user/post')
+@post('/user/post')
 def postuserreg(session):
     users = controller.insertUser(request, 'user')
     session['status'] = users['status']
@@ -107,10 +109,13 @@ def ownerlogin(session): #Login page
 @ post('/owner/login/post')
 def postownerlogin(session):
     users = controller.logIn(request, 'dataowner')
-    s = bottle.request.environ.get('beaker.session')
-    s['logged'] = users
-    s.save()
-    redirect('/')
+    if(users['status'] == 'success'):
+        s = bottle.request.environ.get('beaker.session')
+        s['logged'] = users
+        s.save()
+        redirect('/')
+    else:
+        redirect('/user/login')
 
 
 #-- -- -- --Register view for owner & POST register save-- -- -- -- -- -- -- -- -- -- --
@@ -155,7 +160,7 @@ def showuploadpage(session):
     else:
         redirect('/owner/login')
 
-@ post('/owner/upload')
+@post('/owner/upload')
 def postupload(session):
     login = bottle.request.environ.get('beaker.session')
     loggeduser = login.get('logged');
@@ -177,6 +182,15 @@ def postupload(session):
     session['clsname'] = filesv['class']
     session['msg'] = filesv['msg']
     redirect('/owner/upload')
+
+
+@post('/deletefile/<imgid>')
+def deletefile(imgid):
+    login = bottle.request.environ.get('beaker.session');
+    loggeduser = login.get('logged');
+    deletests = controller.deleteFile(loggeduser['id'], imgid)
+    return deletests
+
 
 #################################################################################################
 #-- -- -- -- -Generate secret key-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -

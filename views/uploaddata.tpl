@@ -132,7 +132,7 @@
                                         <button class="btn btn-info download" type="submit">Download  <i class="glyphicon glyphicon-download"></i></button>
                                     </form>
                                 </td>
-                                <td><button class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></button></td>
+                                <td><button class="btn btn-danger delete" id={{data[0]}}>Delete <i class="glyphicon glyphicon-trash"></i></button></td>
                             </tr>
                         %end
                     </table>
@@ -142,6 +142,20 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 //$("#company").tagit("add", {label: 'tag', value: 12});
+                $(".delete").on('click', function(){
+                    var id = $(this).attr('id');
+                    var ch = confirm("Are you sure you want to delete?");
+                    if(ch === true){
+                        $.ajax({
+                            url:'/deletefile/'+parseInt(id),
+                            type:'POST',
+                            success:function(data){
+                                alert(data.msg);
+                                location.reload();
+                            }
+                        })
+                    }
+                });
                 $("#upload").validate({
                     rules:{
                         documents:"required",

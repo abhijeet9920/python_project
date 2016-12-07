@@ -3,7 +3,7 @@ from config import database
 from Crypto.Hash import MD5
 from config import helpers
 import time
-
+import os
 
 
 def insertUser(req, utype):
@@ -62,6 +62,7 @@ def logIn(req, utype):
 	loggedinusers = []
 	c.execute(sql)
 	loggedinusers = c.fetchone()
+	print(loggedinusers);
 	if loggedinusers:
 		return {"status":"success", "msg":"User found", "id":loggedinusers[0], "email":loggedinusers[1], "type":loggedinusers[3],"uname":loggedinusers[7]}
 	else:
@@ -113,5 +114,20 @@ def getFiles(ids):
 	sql = "SELECT a.id, a.path, a.filename, a.created_at, concat(b.fname, ' ',b.lname), a.keywords from files as a JOIN users as b on a.uploadby = b.id where a.uploadby = %d"%(ids);
 	c.execute(sql)
 	data = c.fetchall();
-	print(data)
+	print(sql);
 	return data
+
+
+def deleteFile(ids, imgid):
+	c = database.conn.cursor()
+	delsql = "DELETE FROM files WHERE uploadby = %d"%(ids)
+	filesql = "SELECT a.path from files as a where id = %d"%(int(imgid))
+	try:
+		c.execute(filesql);
+		file = c.fetchone();
+		print(file[0]);
+		os.remove(file[0]);
+		c.execute(delsql)
+		return {"status":"success", "msg":"Deleted successfully"}
+	except:
+		return {"status":"failed", "msg":"Invalid record"}
