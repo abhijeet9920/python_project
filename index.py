@@ -79,7 +79,7 @@ def find(session):
         user = login.get('logged')
         return template('views/userSearch.tpl', files = files, session=user)
     else:
-        redirect('/')
+        redirect('/user/login')
 
 
 # -- -- -- -- -- -- -- -Download searched files-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -
@@ -153,7 +153,7 @@ def showuploadpage(session):
         print(files);
         return template('views/uploaddata.tpl', classname = classname, msg = msg, login=user, files=files)
     else:
-        redirect('/')
+        redirect('/owner/login')
 
 @ post('/owner/upload')
 def postupload(session):
