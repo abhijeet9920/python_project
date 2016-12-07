@@ -198,6 +198,15 @@ def checkIfexist():
     exists = controller.checkIfmail(email)
     return exists
 
+
+@get('/logout')
+def logout():
+    session = bottle.request.environ.get('beaker.session')
+    session.delete()
+    redirect('/')
+
+
+
 #################################################################################################
 #You can configure host, port and debug as per your requirements
 bottle.debug(True)
