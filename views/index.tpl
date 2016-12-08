@@ -64,7 +64,8 @@
                 %end
             </ul>
         </div>
-        <div class="container" style="margin-top: 30px;">
+        <div class="container" style="margin-top: 30px;background-color: #a3c2c2;width: 918px;margin-left: 250px;padding-left: 0px;padding-right: 0px;padding-top: 0px;padding-bottom: 0px;height: 500px;">
+            <img src="http://blog.smallbusinessadvocate.com/wp-content/uploads/2014/03/cloud-computing-from-any-device.jpg" alt="Mountain View" style="width: 918px;height: 500px;">
         </div>
     </body>
     <noscript>
